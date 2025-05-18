@@ -2,26 +2,20 @@
 title: "Content Placeholder"
 ---
 
-Hello!
-
 {{< gather dest="foo" >}}
 
-This is some content.
+(1) This is some content.
 
 {{< /gather >}}
 
 {{< gather dest="foo" >}}
 
-This is some more content.
+(2) This is some more content.
 
 {{< /gather >}}
 
-{{< dump dest="foo" >}}
+<p style="border-style: solid; border-width: 1px">
 
+{{< dump source="foo" >}}
 
-
-
-
-
-
-
+</p>
