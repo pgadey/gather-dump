@@ -1,0 +1,5 @@
+{{/* get the relevant information from the global scratchpad named $dest */}}
+
+{{ $source := .Get "source" }}
+
+{{ hugo.Store.Get $source | safeHTML }}

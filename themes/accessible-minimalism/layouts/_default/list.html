@@ -1,0 +1,31 @@
+{{ define "main" }}
+
+<h1>{{ .Title }}</h1>
+
+{{ if gt (len .Content) 0 }}
+	{{ .Content }}
+	<hr>
+{{ end }}
+
+
+{{ range .Pages.ByLastmod.Reverse }}
+
+    <h3>
+    {{ if .Draft }}
+	 ✒️
+    {{ end }}
+    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+    </h3>
+
+    {{ if gt (len .Summary) 0 }}
+      <p>
+	<!-- <em>Summary: </em> -->
+        {{ .Summary | safeHTML }}
+
+        <a href="{{ .RelPermalink }}">[full page]</a>
+      </p>
+  {{ end }}
+
+{{ end }}
+
+{{ end }}

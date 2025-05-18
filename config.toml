@@ -1,0 +1,39 @@
+baseURL = "https://pgadey.ca/experimental/"
+languageCode = "en-us"
+title = "Experimental"
+theme = "accessible-minimalism"
+disableHugoGeneratorInject = true
+enableRobotsTXT = true
+katex = true
+enableGitInfo = true
+summaryLength = 20
+publishDir="/home/pgadey/public_html/experimental/"
+
+[menu]
+  [[menu.main]]
+    name = "Home"
+    url = "/"
+    weight = 1
+  [[menu.main]]
+    name = "Tags"
+    url = "/tags/"
+    weight = 9
+  [[menu.main]]
+    name = "RSS Feeds"
+    url = "/feeds/"
+    weight = 10
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+    [markup.goldmark.parser]
+      attribute = true
+
+[services]
+  [services.rss]
+    limit = 20
+
+[frontmatter]
+  lastmod = [':git', 'lastmod', 'modified', 'date', 'publishdate', 'pubdate', 'published']
+

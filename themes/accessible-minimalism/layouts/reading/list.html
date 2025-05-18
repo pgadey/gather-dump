@@ -1,0 +1,55 @@
+{{ define "main" }}
+
+	{{ if gt (len .Content) 0 }}
+		{{ .Content }}
+		<hr>
+	{{ end }}
+	
+	<ol reversed>
+	{{ range .Pages }}
+	<li>	
+	        {{ if .Draft }}
+	             ✒️
+	        {{ end }}
+		{{ if gt (len .Content) 0 }}
+		      📖<a href="{{ .RelPermalink }}">{{ .Title }}</a> by {{ .Param "bookauthor" }}
+		{{ else }}
+		      {{ .Title }} by {{ .Param "bookauthor" }}
+		{{ end }}
+		<p>
+		{{ if gt (len .Summary) 0 }}
+		      <!-- <em>Summary:</em> -->
+		      {{ .Summary | safeHTML }}
+		{{ end }}
+		</p>
+		<details>
+		      <summary>Bibliographic information.</summary>
+		      <ul>
+			<!-- <li>Posted on: {{ time.Format "January 2, 2006" .Date }}</li> -->
+			{{ if .Param "isbn" }}
+				<li>ISBN: {{ .Param "isbn" }}</li>
+				<li><a href="https://search.worldcat.org/search?q=bn%3A{{ .Param "isbn" }}">WorldCat</a></li>
+				<li><a href="https://www.abebooks.com/servlet/SearchResults?&isbn={{ .Param "isbn" }}">AbeBooks</a></li>
+			{{ end }}
+			{{ if .Param "tpl" }}
+				<li><a href="{{ .Param "tpl" }}">Toronto Public Library</a></li>
+			{{ end }}
+			{{ if .Param "utl" }}
+				<li><a href="{{ .Param "utl" }}">University of Toronto Library</a></li>
+			{{ end }}
+			{{ if .Param "arxiv" }}
+				<li><a href="{{ .Param "arxiv" }}">ArXiV</a></li>
+			{{ end }}
+			{{ if .Param "doi" }}
+				<li><a href="{{ .Param "doi" }}">DOI</a></li>
+			{{ end }}
+			{{ if .Param "link" }}
+				<li><a href="{{ .Param "link" }}">{{ .Param "linktext" }}</a></li>
+			{{ end }}
+		      </ul>
+		</details>
+	</li>
+	{{ end }}
+	</ol>
+
+{{ end }}

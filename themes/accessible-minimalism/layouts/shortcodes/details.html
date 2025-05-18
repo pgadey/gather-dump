@@ -1,0 +1,6 @@
+<details closed>
+  {{ if .Get "summary" }}
+ 	 <summary>{{ .Get "summary" }}</summary>
+  {{ end }}
+  {{ .Inner | markdownify }}
+</details>

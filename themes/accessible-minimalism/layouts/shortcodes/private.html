@@ -1,0 +1,13 @@
+{{/*
+	This shortcode allows for the inclusion of private material.
+	If the page is being rendered by `hugo-local` (which runs `hugo server`) then it shows "development" content.
+	If the page is being rendered by `./post.sh` (which runs `hugo`) then it shows "production" content.
+*/}} 
+
+{{ if eq hugo.Environment "development" }}
+		 ✒️ {{ .Inner | markdownify }}
+{{ end }}
+
+{{ if eq hugo.Environment "production" }}
+	<!-- gobble -->
+{{ end }}

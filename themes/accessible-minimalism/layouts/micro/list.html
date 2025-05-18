@@ -1,0 +1,11 @@
+{{ define "main" }}
+
+	<h1>THIS IS A MICRO LAYOUT</h1>
+
+	{{ range .Pages }}
+
+	      <a href="{{ .RelPermalink }}">{{ .Title }}</a>: {{ .Content }}
+
+	{{ end }}
+
+{{ end }}

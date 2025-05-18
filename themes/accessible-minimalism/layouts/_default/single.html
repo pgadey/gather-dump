@@ -1,0 +1,98 @@
+{{ define "main" }}
+	<h1>{{ .Title }}</h1>
+
+	{{ if .Param "status" }}
+		<p class="status">
+		{{ .Param "status" }}
+		</p>
+	{{ end }}
+
+
+	{{ .Content }}
+
+
+	{{ if ne .Params.Type "page" }}
+	  <h1>Meta</h1>
+	  <!-- author and date modified -->
+	  {{ partial "metadata.html" . }}
+	{{ end }}
+
+	{{ if .Params.categories }}
+
+		  <h3>Related categories:</h3>
+
+		  <ul>
+
+		  {{ with .Params.categories }}
+			  {{ range . }}
+				  {{ $href := print (absURL "categories/") (urlize .) }}
+				  <li><a href="{{ $href }}">{{ . }}</a></li>
+			  {{ end }}
+		  {{ end }}
+
+		  </ul>
+
+	{{ end }}
+
+	{{ if .Params.tags }}
+
+	<details>
+	<summary>Tags</summary>
+		  <ul>
+
+		  {{ with .Params.tags }}
+			  {{ range . }}
+				  {{ $href := print (absURL "tags/") (urlize .) }}
+				  <li><a href="{{ $href }}">{{ . }}</a></li>
+			  {{ end }}
+		  {{ end }}
+
+		  </ul>
+	</details>
+
+	{{ end }}
+
+	<!-- Backlink support is provided by Wouter Groeneveld of https://brainbaking.com -->
+	<!-- https://brainbaking.com/post/2022/04/true-backlink-support-in-hugo/ -->
+
+	{{ $currRellink := substr .RelPermalink 0 -1 }}
+	{{ $currContent := .Content }}
+	{{ $backlinks := slice }}
+	{{ $forwardlinks := slice }}
+
+	{{ range (where .Site.Pages ".Section" "in" (slice "notes" "test" "now" "main")) }}
+	    {{ $found := findRE $currRellink .Content 1 }}
+	    {{ if $found }}
+	      {{ $backlinks = $backlinks | append . }}
+	    {{ else }}
+	      {{ $rellink := substr .RelPermalink 0 -1 }}
+	      {{ $found = findRE $rellink $currContent 1 }}   
+	      {{ if $found }}
+		{{ $forwardlinks = $forwardlinks | append . }}
+	      {{ end }}
+	    {{ end }}
+	{{ end }}
+	
+
+	{{ $related := $backlinks }}
+
+	{{ if $related }}
+	<details>
+	<summary>Backlinks</summary>
+		<ul>
+		{{ range $related }}
+			  <li><a href="{{ (urlize .RelPermalink) }}">{{ .Title }}</a></li>
+		{{ end }}
+		</ul>
+	</details>
+
+	{{ end }}
+
+
+{{ end }}
+
+
+
+
+
+

@@ -1,0 +1,12 @@
+{{/*
+	This shortcode gobbles its contents.
+	For details about comments in Hugo see: 
+		https://stackoverflow.com/questions/45224766/how-to-comment-out-content-in-hugo -->
+	Moreover, if you don't have an .Inner placeholder, Hugo freaks out.
+*/}}
+
+{{ if .Inner }}
+	<!-- gobble -->
+{{ else }}
+  {{ . }}
+{{ end }}

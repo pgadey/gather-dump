@@ -1,0 +1,81 @@
+{{ define "main" }}
+<h1>{{ .Title }}</h1>
+
+{{ if .Param "status" }}
+	<p class="status">
+	{{ .Param "status" }}
+	</p>
+{{ end }}
+
+{{ .Content }}
+
+<h1>Sources</h1>
+<ul>
+  {{ if .Param "isbn" }}
+  	<li>ISBN: {{ .Param "isbn" }}</li>
+  	<li><a href="https://search.worldcat.org/search?q=bn%3A{{ .Param "isbn" }}">WorldCat</a></li>
+  	<li><a href="https://www.abebooks.com/servlet/SearchResults?&isbn={{ .Param "isbn" }}">AbeBooks</a></li>
+  {{ end }}
+  {{ if .Param "tpl" }}
+  	<li><a href="{{ .Param "tpl" }}">Toronto Public Library</a></li>
+  {{ end }}
+  {{ if .Param "utl" }}
+  	<li><a href="{{ .Param "utl" }}">University of Toronto Library</a></li>
+  {{ end }}
+  {{ if .Param "arxiv" }}
+  	<li><a href="{{ .Param "arxiv" }}">ArXiV</a></li>
+  {{ end }}
+  {{ if .Param "doi" }}
+  	<li><a href="{{ .Param "doi" }}">DOI</a></li>
+  {{ end }}
+  {{ if .Param "link" }}
+  	<li><a href="{{ .Param "link" }}">{{ .Param "linktext" }}</a></li>
+  {{ end }}
+</ul>
+
+<hr>
+
+{{ if ne .Params.Type "page" }}
+  <h1>Meta</h1>
+  <!-- author and date modified --> 
+  {{ partial "metadata.html" . }}
+{{ end }}
+
+
+{{ if .Params.categories }}
+
+  <h1>Related categories</h1>
+
+  <ul>
+
+  {{ with .Params.categories }}
+  {{ range . }}
+  {{ $href := print (absURL "categories/") (urlize .) }}
+  <li><a href="{{ $href }}">{{ . }}</a></li>
+  {{ end }}
+  {{ end }}
+
+  </ul>
+
+{{ end }}
+
+{{ if .Params.tags }}
+
+  <h1>Related tags</h1>
+
+  <ul>
+
+  {{ with .Params.tags }}
+  {{ range . }}
+  {{ $href := print (absURL "tags/") (urlize .) }}
+  <li><a href="{{ $href }}">{{ . }}</a></li>
+  {{ end }}
+  {{ end }}
+
+  </ul>
+
+{{ end }}
+
+
+
+{{ end }}

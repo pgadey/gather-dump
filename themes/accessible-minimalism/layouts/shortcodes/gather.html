@@ -1,0 +1,13 @@
+{{/* put the relevant information in the global scratchpad named $dest */}}
+
+{{ $dest := .Get "dest" }}
+{{ $exists := hugo.Store.Get $dest }}
+
+{{ if not $exists }}
+	{{ hugo.Store.Set $dest .Inner }}
+{{ else }}
+	{{ hugo.Store.Add $dest .Inner }}
+{{ end }}
+
+{{ .Inner | safeHTML }}
+
